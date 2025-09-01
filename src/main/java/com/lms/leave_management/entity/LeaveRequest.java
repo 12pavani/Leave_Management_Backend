@@ -1,6 +1,16 @@
 package com.lms.leave_management.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
@@ -12,7 +22,13 @@ public class LeaveRequest {
     @SequenceGenerator(name = "leave_request_seq", sequenceName = "leave_request_seq", allocationSize = 1)
     private Long id;
 
+    @Column(name = "emp_id")
     private String empId;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
     private String managerId;
 
     private LocalDate fromDate;
@@ -35,6 +51,9 @@ public class LeaveRequest {
 
     public String getEmpId() { return empId; }
     public void setEmpId(String empId) { this.empId = empId; }
+
+    public Employee getEmployee() { return employee; }
+    public void setEmployee(Employee employee) { this.employee = employee; }
 
     public String getManagerId() { return managerId; }
     public void setManagerId(String managerId) { this.managerId = managerId; }
